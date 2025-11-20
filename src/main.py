@@ -1,8 +1,24 @@
 import sys
+from pathlib import Path
 
 from PySide6.QtWidgets import QApplication, QVBoxLayout, QWidget
 
-from src.widgets.TranscribeWidget import ButtonWidget
+current_dir = Path(__file__).resolve().parent
+
+project_root = current_dir.parent
+
+sys.path.append(str(current_dir))
+sys.path.append(str(project_root))
+
+try:
+    from TranscribeWidget import TranscribeWidget
+except ImportError:
+    try:
+        from widgets.TranscribeWidget import TranscribeWidget
+    except ImportError:
+        from src.widgets.TranscribeWidget import TranscribeWidget
+
+from mod.paths import DIR_OUT
 
 
 class MainWindow(QWidget):
@@ -11,11 +27,22 @@ class MainWindow(QWidget):
         self.__define_layout()
 
     def __define_layout(self) -> None:
-        self.setWindowTitle("title")
+        self.resize(400, 300)
 
         layout = QVBoxLayout()
-        self.button_widget = ButtonWidget()
-        layout.addWidget(self.button_widget)
+        
+        # ウィジェットの配置
+        self.transcribe_widget = TranscribeWidget()
+        layout.addWidget(self.transcribe_widget)
+
+        # 動作確認用: 録音ファイルがあればセットする
+        test_audio_path = DIR_OUT
+        
+        if test_audio_path.exists():
+            self.transcribe_widget.set_audio_path(test_audio_path)
+            print(f"デバッグ: {test_audio_path} をセットしました。")
+        else:
+            print(f"デバッグ: {test_audio_path} が見つかりません。録音ファイルが必要です。")
 
         self.setLayout(layout)
 
@@ -26,6 +53,4 @@ if __name__ == "__main__":
 
     win.show()
     app.exec()
-
-    del win
     sys.exit()
