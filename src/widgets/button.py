@@ -10,7 +10,7 @@ class ButtonWidget(QWidget):
         layout = QVBoxLayout()
 
         button1 = QPushButton("ボタン 1")
-        button2 = QPushButton("ボタン 2")
+        button2 = QPushButton("文字起こし")
         button3 = QPushButton("ボタン 3")
 
         button1.clicked.connect(self.__on_click_button)
