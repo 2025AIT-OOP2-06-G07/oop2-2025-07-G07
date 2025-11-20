@@ -3,7 +3,7 @@ import subprocess
 from typing import Final, Optional
 
 from PySide6.QtCore import QThread, Signal
-from PySide6.QtWidgets import QHBoxLayout, QPushButton, QWidget
+from PySide6.QtWidgets import QHBoxLayout, QPushButton, QWidget, QLabel
 
 from mod.paths import DIR_OUT
 from mod.record import record_pc_audio
@@ -39,13 +39,18 @@ class RecordWidget(QWidget):
     def __define_layout(self) -> None:
         layout = QHBoxLayout()
 
-        self._button_start = QPushButton("10 秒録音開始")
+        label = QLabel("1. ")
+        label.setFixedWidth(20)
+        layout.addWidget(label)
+
+        self._button_start = QPushButton("● 10 秒録音開始")
         self._button_start.clicked.connect(self.__on_click_start)
         layout.addWidget(self._button_start)
 
-        self._button_stop = QPushButton("停止")
+        self._button_stop = QPushButton("■ 停止")
+        self._button_stop.setFixedWidth(60)
+        self._button_stop.setDisabled(True)
         self._button_stop.clicked.connect(self.__on_click_stop)
-        self._button_stop.setVisible(False)
         layout.addWidget(self._button_stop)
 
         self.setLayout(layout)
@@ -55,7 +60,7 @@ class RecordWidget(QWidget):
 
         self._state.log = "録音を開始します..."
         self._button_start.setDisabled(True)
-        self._button_stop.setVisible(True)
+        self._button_stop.setDisabled(False)
 
         self._thread = RecordThread(10, output_file)
         self._thread.finished_recording.connect(self.__on_finished)
@@ -67,6 +72,6 @@ class RecordWidget(QWidget):
             self._thread.stop()
 
     def __on_finished(self) -> None:
-        self._state.log = "録音が完了しました。"
+        self._state.log = "録音を停止しました。"
         self._button_start.setDisabled(False)
-        self._button_stop.setVisible(False)
+        self._button_stop.setDisabled(True)
