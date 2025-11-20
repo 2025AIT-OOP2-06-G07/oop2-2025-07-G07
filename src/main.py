@@ -2,7 +2,7 @@ import sys
 
 from PySide6.QtWidgets import QApplication, QVBoxLayout, QWidget
 
-from widgets.button import ButtonWidget
+from src.widgets.TranscribeWidget import ButtonWidget
 
 
 class MainWindow(QWidget):
