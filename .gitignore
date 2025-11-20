@@ -219,3 +219,4 @@ __marimo__/
 
 out/
 assets/whisper-base-mlx
+.vscode/settings.json
