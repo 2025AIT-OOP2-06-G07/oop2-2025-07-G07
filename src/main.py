@@ -3,9 +3,8 @@ from pathlib import Path
 
 from PySide6.QtWidgets import QApplication, QVBoxLayout, QWidget
 
-from TranscribeWidget import TranscribeWidget
+from widgets.TranscribeWidget import TranscribeWidget
 from mod.paths import DIR_OUT
-
 
 class MainWindow(QWidget):
     def __init__(self) -> None:
