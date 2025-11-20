@@ -1,7 +1,10 @@
-from PySide6.QtWidgets import QPushButton, QVBoxLayout, QWidget
+from PySide6.QtWidgets import QPushButton, QVBoxLayout, QWidget,QLabel
+
+from mod.save import save_with_timestamp
+from mod.paths import DIR_OUT
 
 
-class ButtonWidget(QWidget):
+class SaveWidget(QWidget):
     def __init__(self) -> None:
         super().__init__()
         self.__define_layout()
@@ -11,11 +14,11 @@ class ButtonWidget(QWidget):
 
         button1 = QPushButton("ボタン 1")
         button2 = QPushButton("ボタン 2")
-        button3 = QPushButton("ボタン 3")
+        button3 = QPushButton("保存")
 
         button1.clicked.connect(self.__on_click_button)
         button2.clicked.connect(self.__on_click_button)
-        button3.clicked.connect(self.__on_click_button)
+        button3.clicked.connect(self.__on_click_button3)
 
         layout.addWidget(button1)
         layout.addWidget(button2)
@@ -25,3 +28,8 @@ class ButtonWidget(QWidget):
 
     def __on_click_button(self) -> None:
         print("ボタンがクリックされました")
+
+    def __on_click_button3(self) -> None:
+        save_with_timestamp('transcribed_text', DIR_OUT)
+        #print("保存されました")
+

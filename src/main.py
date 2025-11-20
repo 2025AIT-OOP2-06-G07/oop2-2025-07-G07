@@ -2,7 +2,7 @@ import sys
 
 from PySide6.QtWidgets import QApplication, QVBoxLayout, QWidget
 
-from widgets.button import ButtonWidget
+from widgets.save import SaveWidget
 
 
 class MainWindow(QWidget):
@@ -14,7 +14,7 @@ class MainWindow(QWidget):
         self.setWindowTitle("title")
 
         layout = QVBoxLayout()
-        self.button_widget = ButtonWidget()
+        self.button_widget = SaveWidget()
         layout.addWidget(self.button_widget)
 
         self.setLayout(layout)
